@@ -7,7 +7,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i4;
 import 'package:flutter/material.dart';
-import 'package:khadim_e_insaniyat/modules/home/home_view.dart' as _i2;
+import 'package:khadim_e_insaniyat/modules/home/views/home_view.dart' as _i2;
 import 'package:khadim_e_insaniyat/modules/patients_listing/patients_listing_view.dart'
     as _i3;
 import 'package:stacked/stacked.dart' as _i1;
