@@ -23,6 +23,7 @@ part 'contents/search_field_contents.dart';
 part 'contents/tag_field_contents.dart';
 part 'contents/text_field_contents.dart';
 part 'contents/boolean_field_contents.dart';
+part 'contents/numeric_field_contents.dart';
 
 
 class AutoCompleteFieldOptions<K extends Object> {
@@ -536,6 +537,57 @@ class AppInputField<A extends Object> extends StatefulWidget {
     );
   }
 
+  factory AppInputField.numeric({
+    Key? key,
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    TextInputAction? textInputAction,
+    String? label,
+    String? hint,
+    String? error,
+    String? helperText,
+    Color? backgroundColor,
+    Color? borderColor,
+    bool isDisabled = false,
+    bool required = false,
+    int? maxLength,
+    double? horizontalMargin,
+    Widget? prefix,
+    Widget? suffix,
+    Function(String)? onChanged,
+    Function(String)? onSubmit,
+    VoidCallback? onFocusOut,
+    VoidCallback? onTap,
+    AutoCompleteFieldOptions<A>? autoCompleteFieldOptions,
+    double? borderRadius,
+  }) {
+    return AppInputField._(
+      key: key,
+      fieldType: AppInputFieldType.text,
+      controller: controller,
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      label: label,
+      hint: hint,
+      error: error,
+      helperText: helperText,
+      backgroundColor: backgroundColor,
+      borderColor: borderColor,
+      isDisabled: isDisabled,
+      required: required,
+      maxLength: maxLength,
+      horizontalMargin: horizontalMargin,
+      prefix: prefix,
+      suffix: suffix,
+      onChanged: onChanged,
+      onSubmit: onSubmit,
+      onFocusOut: onFocusOut,
+      borderRadius: borderRadius,
+      onTap: onTap,
+      autoCompleteFieldOptions: autoCompleteFieldOptions,
+    );
+  }
+
   @override
   State<AppInputField<A>> createState() => _AppInputFieldState<A>();
 }
@@ -833,6 +885,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
         return _commentFieldContents(context, this);
       case AppInputFieldType.boolean:
         return _booleanFieldContents(context, this);
+      case AppInputFieldType.numeric:
+        return _numericFieldContents(context, this);
     }
   }
 
@@ -845,6 +899,9 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
     }
     if (widget.fieldType == AppInputFieldType.tag) {
       return null;
+    }
+    if (widget.fieldType == AppInputFieldType.numeric) {
+      return 20;
     }
     if (widget.fieldType == AppInputFieldType.description) {
       return 110;
@@ -869,6 +926,7 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
     switch (widget.fieldType) {
       case AppInputFieldType.text:
       case AppInputFieldType.phone:
+      case AppInputFieldType.numeric:
         return const EdgeInsets.symmetric(horizontal: 16);
       case AppInputFieldType.tag:
         return const EdgeInsets.symmetric(horizontal: 8, vertical: 8);
@@ -1004,4 +1062,5 @@ enum AppInputFieldType {
   search,
   comment,
   boolean,
+  numeric,
 }

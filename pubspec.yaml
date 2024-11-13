@@ -36,6 +36,7 @@ dependencies:
 
   dio: ^5.5.0+1
   universal_html: ^2.2.4
+  syncfusion_flutter_datepicker: ^27.1.58
 
   mask_text_input_formatter: ^2.9.0
   extended_text_field: ^16.0.0

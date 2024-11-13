@@ -4,7 +4,7 @@ Widget _phoneFieldContents(BuildContext context, _AppInputFieldState state) {
   return Row(
     children: [
       Text(
-        '+1',
+        '+92',
         style: AppTextStyles.b14((state.widget.focusNode.hasFocus || state.widget.controller.text.isNotEmpty)
             ? AppTheme.colors(context).text
             : AppTheme.colors(context).textTersiary),
@@ -54,8 +54,10 @@ class PhoneNumberController extends TextEditingController {
   PhoneNumberController({super.text});
 
   MaskTextInputFormatter formatter = MaskTextInputFormatter(
-    mask: '(###) ###-####',
-    filter: {"#": RegExp(r'[0-9]')},
+    mask: '(03##) ###-####',
+    filter: {
+      "#": RegExp(r'[0-9]'),
+    },
     type: MaskAutoCompletionType.eager,
   );
 

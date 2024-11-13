@@ -1,0 +1,4 @@
+enum MedicineType{
+  diabetic,
+  skin,
+}
