@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:khadim_e_insaniyat/core/core_view_model.dart';
-import 'package:khadim_e_insaniyat/modules/widgets/fields/app_input_field/app_input_field.dart';
 
 class HomeViewModel extends CoreViewModel {
-  late TextEditingController patientNameController = getTextEditingController();
-  late FocusNode patientNameFocusNode = getFocusNode();
 
-  late PhoneNumberController contactController = PhoneNumberController();
-  late FocusNode contactFocusNode = getFocusNode();
+  TabController tabController;
 
-  late TextEditingController ageController = getTextEditingController();
-  late FocusNode ageFocusNode = getFocusNode();
+  List<String> tabs = ['Patient Entry','Medicines List','Patient List'];
 
-  late TextEditingController addressController = getTextEditingController();
-  late FocusNode addressFocusNode = getFocusNode();
+  HomeViewModel({
+    required this.tabController,
+  });
 
-  late TextEditingController identityController = getTextEditingController();
-  late FocusNode identityFocusNode = getFocusNode();
-
-  onChangeDate() {}
+  void onChangeTab(int value, {bool forced = false}) {
+    tabController.index = value;
+    // switch (value) {
+    //   case 0:
+    //   case 1:
+    //   case 2:
+    // }
+    // notifyListeners();
+  }
 }

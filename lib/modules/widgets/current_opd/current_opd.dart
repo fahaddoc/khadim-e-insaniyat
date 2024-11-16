@@ -16,42 +16,40 @@ class CurrentOPD extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: AppTextStyles.h32(
-                      AppTheme.colors(context).text,
-                    ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 8),
+      decoration: BoxDecoration(
+        color: AppTheme.colors(context).surface,
+        borderRadius: BorderRadius.circular(8)
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyles.h20(
+                    AppTheme.colors(context).text,
                   ),
-                  const SizedBox(
-                    height: 8,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'TOKEN # $tokenNumber',
+                  style: AppTextStyles.t18(
+                    AppTheme.colors(context).text,
                   ),
-                  Text(
-                    'TOKEN # $tokenNumber',
-                    style: AppTextStyles.h24(
-                      AppTheme.colors(context).text,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-            AppButton.primary(
-              size: AppButtonSize.medium,
-              label: 'Save & Print',
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

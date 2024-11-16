@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:khadim_e_insaniyat/core/core_view_model.dart';
 import 'package:khadim_e_insaniyat/enums/enums.dart';
-import 'package:khadim_e_insaniyat/modules/home/models/medicine_list_model.dart';
+import 'package:khadim_e_insaniyat/modules/home/modules/medicines_listing/models/medicine_list_model.dart';
 
 class MedicineListViewModel extends CoreViewModel{
   final List<TextEditingController> qtyControllers = [];
@@ -34,12 +34,12 @@ class MedicineListViewModel extends CoreViewModel{
   List<MedicineListModel> get medicineList => _medicineList;
 
 
-  void updateQuantities() {
-    for (int i = 0; i < medicineList.length; i++) {
-      int quantity = int.tryParse(qtyControllers[i].text) ?? 0;
-      // medicineList[i].qty = quantity; // Update model quantity
-    }
-  }
+  // void updateQuantities() {
+  //   for (int i = 0; i < medicineList.length; i++) {
+  //     int quantity = int.tryParse(qtyControllers[i].text) ?? 0;
+  //     medicineList[i].qty = quantity; // Update model quantity
+  //   }
+  // }
 
 
   onChangeQty(value){
@@ -49,7 +49,7 @@ class MedicineListViewModel extends CoreViewModel{
   @override
   Future<void> initialize() {
     for (int i = 0; i < medicineList.length; i++) {
-      qtyControllers.add(TextEditingController(text: medicineList[i].name));
+      qtyControllers.add(TextEditingController());
       qtyFocusNodes.add(FocusNode());
     }
     return super.initialize();

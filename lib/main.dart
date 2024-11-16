@@ -2,15 +2,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:khadim_e_insaniyat/app/navigator/app_navigator.dart';
+import 'package:khadim_e_insaniyat/app_database/initialize_db/initialize_db.dart';
 import 'package:khadim_e_insaniyat/shared/app_theme.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:toastification/toastification.dart';
+
 import 'app/navigator/app.router.dart';
 
-
+var path = '/my/db/path';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDatabase();
+
+  if (kIsWeb) {
+    // Set the database factory for web
+    databaseFactory = databaseFactoryFfiWeb;
+    path = 'my_web_web.db';
+  }
   GestureBinding.instance.resamplingEnabled = true;
   await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   runApp(const MyApp());
