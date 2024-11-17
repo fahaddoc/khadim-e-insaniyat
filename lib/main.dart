@@ -9,6 +9,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:toastification/toastification.dart';
 
+import 'app/locator.dart';
 import 'app/navigator/app.router.dart';
 
 var path = '/my/db/path';
@@ -22,8 +23,14 @@ void main() async {
     path = 'my_web_web.db';
   }
   GestureBinding.instance.resamplingEnabled = true;
+  setupLocator();
+  await initialiseServices();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   runApp(const MyApp());
+}
+
+initialiseServices() async {
+
 }
 
 class MyApp extends StatelessWidget {

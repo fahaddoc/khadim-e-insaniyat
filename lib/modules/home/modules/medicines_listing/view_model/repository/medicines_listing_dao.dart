@@ -10,6 +10,9 @@ abstract class MedicinesDao{
   @insert
   Future<void> insertMedicine(MedicinesListingModel medicine);
 
+  @update
+  Future<void> updateMedicine(MedicinesListingModel medicine);
+
   @delete
   Future<void> deleteMedicine(MedicinesListingModel medicine);
 }

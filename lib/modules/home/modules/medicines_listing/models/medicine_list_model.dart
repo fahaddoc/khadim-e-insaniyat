@@ -1,13 +1,24 @@
 import 'package:khadim_e_insaniyat/enums/enums.dart';
 
-class MedicineListModel {
+abstract class DynamicListable{
+  List<dynamic> get toDynamicList;
+}
+
+class MedicineListModel implements DynamicListable{
   final String name;
-  late final int qty;
-  final MedicineType type;
+  final int? qty;
+  final String type;
 
   MedicineListModel({
     required this.name,
-    required this.qty,
+    this.qty,
     required this.type,
   });
+
+  @override
+  List<dynamic> get toDynamicList => [
+    name,
+    qty
+  ];
+
 }

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:khadim_e_insaniyat/core/core_view.dart';
+import 'package:khadim_e_insaniyat/modules/home/modules/medicines_listing/models/medicine_list_model.dart';
 import 'package:khadim_e_insaniyat/modules/home/widgets/medicine_list/view_model/medicine_view_model.dart';
 import 'package:khadim_e_insaniyat/modules/shared/app_text_styles.dart';
 import 'package:khadim_e_insaniyat/shared/app_theme.dart';
 
 class MedicineList extends CoreView<MedicineListViewModel> {
+  final List<MedicineListModel> medicines;
+
   const MedicineList({
     super.key,
+    required this.medicines,
   });
 
   @override
-  Widget buildView(BuildContext context, MedicineListViewModel viewModel, Widget? child) {
-
+  Widget buildView(
+      BuildContext context, MedicineListViewModel viewModel, Widget? child) {
     return Column(
       children: [
         Row(
@@ -24,7 +28,8 @@ class MedicineList extends CoreView<MedicineListViewModel> {
                     width: 1,
                     color: AppTheme.colors(context).border,
                   ),
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(8))),
+                  borderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(8))),
               child: Text(
                 'SR #',
                 style: AppTextStyles.t13(
@@ -124,12 +129,14 @@ class MedicineList extends CoreView<MedicineListViewModel> {
                       style: AppTextStyles.b14(
                         AppTheme.colors(context).text,
                       ),
-                      onChanged: (value)=> viewModel.onChangeQty(value),
+                      onChanged: (value) => viewModel.onChangeQty(value),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly, // Allows only digits
+                        FilteringTextInputFormatter.digitsOnly,
+                        // Allows only digits
                       ],
-                      onEditingComplete: () {// Optionally save all data at once
+                      onEditingComplete: () {
+                        // Optionally save all data at once
                         FocusScope.of(context).unfocus(); // Dismiss keyboard
                       },
                       maxLines: 1,
@@ -153,6 +160,6 @@ class MedicineList extends CoreView<MedicineListViewModel> {
 
   @override
   MedicineListViewModel viewModelBuilder(BuildContext context) {
-    return MedicineListViewModel();
+    return MedicineListViewModel(medicines: medicines);
   }
 }

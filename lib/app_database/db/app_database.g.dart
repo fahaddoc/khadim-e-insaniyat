@@ -80,7 +80,7 @@ class _$AppDatabase extends AppDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -96,7 +96,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `MedicinesListingModel` (`id` TEXT NOT NULL, `companyName` TEXT NOT NULL, `item` TEXT NOT NULL, `invoice` TEXT NOT NULL, `quantities` INTEGER NOT NULL, `sellingAmount` REAL NOT NULL, `purchasingAmount` REAL NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `MedicinesListingModel` (`id` TEXT NOT NULL, `companyName` TEXT NOT NULL, `item` TEXT NOT NULL, `invoice` TEXT NOT NULL, `quantities` INTEGER NOT NULL, `type` TEXT, `sellingAmount` REAL NOT NULL, `purchasingAmount` REAL NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -124,6 +124,21 @@ class _$MedicinesDao extends MedicinesDao {
                   'item': item.item,
                   'invoice': item.invoice,
                   'quantities': item.quantities,
+                  'type': item.type,
+                  'sellingAmount': item.sellingAmount,
+                  'purchasingAmount': item.purchasingAmount
+                }),
+        _medicinesListingModelUpdateAdapter = UpdateAdapter(
+            database,
+            'MedicinesListingModel',
+            ['id'],
+            (MedicinesListingModel item) => <String, Object?>{
+                  'id': item.id,
+                  'companyName': item.companyName,
+                  'item': item.item,
+                  'invoice': item.invoice,
+                  'quantities': item.quantities,
+                  'type': item.type,
                   'sellingAmount': item.sellingAmount,
                   'purchasingAmount': item.purchasingAmount
                 }),
@@ -137,6 +152,7 @@ class _$MedicinesDao extends MedicinesDao {
                   'item': item.item,
                   'invoice': item.invoice,
                   'quantities': item.quantities,
+                  'type': item.type,
                   'sellingAmount': item.sellingAmount,
                   'purchasingAmount': item.purchasingAmount
                 });
@@ -150,6 +166,9 @@ class _$MedicinesDao extends MedicinesDao {
   final InsertionAdapter<MedicinesListingModel>
       _medicinesListingModelInsertionAdapter;
 
+  final UpdateAdapter<MedicinesListingModel>
+      _medicinesListingModelUpdateAdapter;
+
   final DeletionAdapter<MedicinesListingModel>
       _medicinesListingModelDeletionAdapter;
 
@@ -157,18 +176,25 @@ class _$MedicinesDao extends MedicinesDao {
   Future<List<MedicinesListingModel>> getAllMedicines() async {
     return _queryAdapter.queryList('SELECT * FROM MedicinesListingModel',
         mapper: (Map<String, Object?> row) => MedicinesListingModel(
-            id: row['id'] as String,
+            id: row['id'] as String?,
             companyName: row['companyName'] as String,
             item: row['item'] as String,
             invoice: row['invoice'] as String,
             quantities: row['quantities'] as int,
             sellingAmount: row['sellingAmount'] as double,
-            purchasingAmount: row['purchasingAmount'] as double));
+            purchasingAmount: row['purchasingAmount'] as double,
+            type: row['type'] as String?));
   }
 
   @override
   Future<void> insertMedicine(MedicinesListingModel medicine) async {
     await _medicinesListingModelInsertionAdapter.insert(
+        medicine, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> updateMedicine(MedicinesListingModel medicine) async {
+    await _medicinesListingModelUpdateAdapter.update(
         medicine, OnConflictStrategy.abort);
   }
 

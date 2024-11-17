@@ -20,20 +20,18 @@ class AppDatePicker extends StatefulWidget {
 
 class _AppDatePicker extends State<AppDatePicker> {
   late TextEditingController dateController = TextEditingController(
-    text: DateFormat('dd/MM/yyyy').format(DateTime.now()),
+    text: DateFormat('dd, MMMM, yyyy').format(DateTime.now()),
   );
   late FocusNode dateFocusNode = FocusNode();
   OverlayEntry? _overlayEntry;
-  bool showDate = false;  // Toggle for showing the overlay
+  bool showDate = false;
 
   void _toggleDatePickerOverlay() {
     if (showDate) {
-      // Remove the overlay if already visible
       _overlayEntry?.remove();
       _overlayEntry = null;
       showDate = false;
     } else {
-      // Create and show the overlay
       _overlayEntry = _createDatePickerOverlay();
       Overlay.of(context).insert(_overlayEntry!);
       showDate = true;
@@ -64,10 +62,10 @@ class _AppDatePicker extends State<AppDatePicker> {
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     if (args.value is DateTime) {
       final selectedDate = args.value as DateTime;
-      dateController.text = DateFormat('dd/MM/yyyy').format(selectedDate);
+      dateController.text = DateFormat('dd, MMMM, yyyy').format(selectedDate);
       widget.onChange?.call(selectedDate);
     }
-    _toggleDatePickerOverlay();  // Close the overlay after a date is selected
+    _toggleDatePickerOverlay();
   }
 
   @override

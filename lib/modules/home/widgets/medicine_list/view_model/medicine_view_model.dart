@@ -4,33 +4,40 @@ import 'package:khadim_e_insaniyat/enums/enums.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/medicines_listing/models/medicine_list_model.dart';
 
 class MedicineListViewModel extends CoreViewModel{
+  final List<MedicineListModel> medicines;
   final List<TextEditingController> qtyControllers = [];
   final List<FocusNode> qtyFocusNodes = [];
 
+  MedicineListViewModel({required this.medicines});
 
 
-  final List<MedicineListModel> _medicineList = [
-    MedicineListModel(
-      name: 'TAB ELILIP 50/500 MG',
-      qty: 0,
-      type: MedicineType.diabetic,
-    ),
-    MedicineListModel(
-      name: 'TAB Unipride 4 MG',
-      qty: 0,
-      type: MedicineType.diabetic,
-    ),
-    MedicineListModel(
-      name: 'TAB Glocophage 500 MG',
-      qty: 0,
-      type: MedicineType.diabetic,
-    ),
-    MedicineListModel(
-      name: 'TAB AMLOTAC 10 MG',
-      qty: 0,
-      type: MedicineType.diabetic,
-    ),
-  ];
+
+
+  // final List<MedicineListModel> _medicineList = [
+  //   MedicineListModel(
+  //     name: 'TAB ELILIP 50/500 MG',
+  //     qty: 0,
+  //     type: MedicineType.diabetic,
+  //   ),
+  //   MedicineListModel(
+  //     name: 'TAB Unipride 4 MG',
+  //     qty: 0,
+  //     type: MedicineType.diabetic,
+  //   ),
+  //   MedicineListModel(
+  //     name: 'TAB Glocophage 500 MG',
+  //     qty: 0,
+  //     type: MedicineType.diabetic,
+  //   ),
+  //   MedicineListModel(
+  //     name: 'TAB AMLOTAC 10 MG',
+  //     qty: 0,
+  //     type: MedicineType.diabetic,
+  //   ),
+  // ];
+
+
+  List<MedicineListModel> _medicineList = [];
   List<MedicineListModel> get medicineList => _medicineList;
 
 
@@ -48,6 +55,12 @@ class MedicineListViewModel extends CoreViewModel{
 
   @override
   Future<void> initialize() {
+    if(medicines.isNotEmpty){
+      print('object 2');
+      print(medicines);
+      _medicineList = medicines;
+    }
+
     for (int i = 0; i < medicineList.length; i++) {
       qtyControllers.add(TextEditingController());
       qtyFocusNodes.add(FocusNode());

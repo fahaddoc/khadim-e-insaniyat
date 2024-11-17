@@ -34,8 +34,8 @@ class HomeDesktopView extends CoreViewModelWidget<HomeViewModel> {
               controller: viewModel.tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: const [
-                MedicinesListingView(),
                 PatientEntryView(),
+                MedicinesListingView(),
                 PatientsListingView(),
               ],
             ),

@@ -5,12 +5,12 @@ import 'package:khadim_e_insaniyat/modules/widgets/app_buttons/app_button.dart';
 import 'package:khadim_e_insaniyat/shared/app_theme.dart';
 
 class CurrentOPD extends StatelessWidget {
-  final String title;
+  final String? title;
   final String tokenNumber;
 
   const CurrentOPD({
     super.key,
-    required this.title,
+    this.title,
     required this.tokenNumber,
   });
 
@@ -28,11 +28,11 @@ class CurrentOPD extends StatelessWidget {
         children: [
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  title,
+                  title ?? '',
                   style: AppTextStyles.h20(
                     AppTheme.colors(context).text,
                   ),
@@ -43,7 +43,7 @@ class CurrentOPD extends StatelessWidget {
                 Text(
                   'TOKEN # $tokenNumber',
                   style: AppTextStyles.t18(
-                    AppTheme.colors(context).text,
+                    AppTheme.colors(context).textTersiary,
                   ),
                 )
               ],

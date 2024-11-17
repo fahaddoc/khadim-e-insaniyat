@@ -15,16 +15,26 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../../shared/app_text_styles.dart';
 
 part 'contents/comment_field_contents.dart';
+
 part 'contents/currency_field_contents.dart';
+
 part 'contents/description_field_contents.dart';
+
 part 'contents/password_field_contents.dart';
+
 part 'contents/phone_field_contents.dart';
+
 part 'contents/search_field_contents.dart';
+
 part 'contents/tag_field_contents.dart';
+
 part 'contents/text_field_contents.dart';
+
 part 'contents/boolean_field_contents.dart';
+
 part 'contents/numeric_field_contents.dart';
 
+part 'contents/id_card_field_contents.dart';
 
 class AutoCompleteFieldOptions<K extends Object> {
   final List<K> initialOptions;
@@ -563,7 +573,58 @@ class AppInputField<A extends Object> extends StatefulWidget {
   }) {
     return AppInputField._(
       key: key,
-      fieldType: AppInputFieldType.text,
+      fieldType: AppInputFieldType.numeric,
+      controller: controller,
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      label: label,
+      hint: hint,
+      error: error,
+      helperText: helperText,
+      backgroundColor: backgroundColor,
+      borderColor: borderColor,
+      isDisabled: isDisabled,
+      required: required,
+      maxLength: maxLength,
+      horizontalMargin: horizontalMargin,
+      prefix: prefix,
+      suffix: suffix,
+      onChanged: onChanged,
+      onSubmit: onSubmit,
+      onFocusOut: onFocusOut,
+      borderRadius: borderRadius,
+      onTap: onTap,
+      autoCompleteFieldOptions: autoCompleteFieldOptions,
+    );
+  }
+
+  factory AppInputField.identity({
+    Key? key,
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    TextInputAction? textInputAction,
+    String? label,
+    String? hint,
+    String? error,
+    String? helperText,
+    Color? backgroundColor,
+    Color? borderColor,
+    bool isDisabled = false,
+    bool required = false,
+    int? maxLength,
+    double? horizontalMargin,
+    Widget? prefix,
+    Widget? suffix,
+    Function(String)? onChanged,
+    Function(String)? onSubmit,
+    VoidCallback? onFocusOut,
+    VoidCallback? onTap,
+    AutoCompleteFieldOptions<A>? autoCompleteFieldOptions,
+    double? borderRadius,
+  }) {
+    return AppInputField._(
+      key: key,
+      fieldType: AppInputFieldType.identity,
       controller: controller,
       focusNode: focusNode,
       textInputAction: textInputAction,
@@ -596,6 +657,7 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
   bool hidePassword = true;
   bool isHovered = false;
   bool isLoading = false;
+
   Widget? get suffix {
     if (isLoading) {
       return SizedBox(
@@ -623,7 +685,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
     setState(() {});
   }
 
-  AutoCompleteFieldOptions<T>? get autoCompleteOptions => widget.autoCompleteFieldOptions;
+  AutoCompleteFieldOptions<T>? get autoCompleteOptions =>
+      widget.autoCompleteFieldOptions;
   void Function() autoCompleteOnSubmit = () {};
 
   @override
@@ -638,7 +701,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
             Row(
               children: [
                 AppGestureDetector(
-                  onTap: () => FocusScope.of(context).requestFocus(widget.focusNode),
+                  onTap: () =>
+                      FocusScope.of(context).requestFocus(widget.focusNode),
                   builder: (_, __) => Text(
                     widget.label!,
                     style: AppTextStyles.b14(
@@ -653,7 +717,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
                     padding: const EdgeInsets.only(left: 2),
                     child: Text(
                       '*',
-                      style: AppTextStyles.b14(AppTheme.colors(context).primary),
+                      style:
+                          AppTextStyles.b14(AppTheme.colors(context).primary),
                     ),
                   )
               ],
@@ -664,78 +729,85 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
             clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
-              Semantics(
-                identifier: 'inputField',
-                child: GestureDetector(
-                  onTap: () {
-                    if (widget.isDisabled) {
-                      return;
+              GestureDetector(
+                onTap: () {
+                  if (widget.isDisabled) {
+                    return;
+                  }
+                  FocusScope.of(context).requestFocus(widget.focusNode);
+                  setState(() {});
+                },
+                child: MouseRegion(
+                  cursor: widget.onTap == null
+                      ? SystemMouseCursors.text
+                      : SystemMouseCursors.click,
+                  onHover: (event) => setState(() {
+                    if (!(AppPlatform.isAndroid || AppPlatform.isIOS)) {
+                      isHovered = true;
                     }
-                    FocusScope.of(context).requestFocus(widget.focusNode);
-                    setState(() {});
-                  },
-                  child: MouseRegion(
-                    cursor: widget.onTap == null ? SystemMouseCursors.text : SystemMouseCursors.click,
-                    onHover: (event) => setState(() {
-                      if (!(AppPlatform.isAndroid || AppPlatform.isIOS)) {
-                        isHovered = true;
-                      }
-                    }),
-                    onExit: (event) => setState(() {
-                      if (!(AppPlatform.isAndroid || AppPlatform.isIOS)) {
-                        isHovered = false;
-                      }
-                    }),
-                    child: autoCompleteOptions == null
-                        ? AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            height: widget.height ?? _height(),
-                            alignment: _alignment(),
-                            padding: _padding().add(EdgeInsets.all(2 - _borderSize())),
-                            constraints: const BoxConstraints(minHeight: 40),
-                            decoration: BoxDecoration(
-                              color: _backgroundColor(),
-                              borderRadius: _borderRadius(),
-                              border: Border.all(
-                                width: _borderSize(),
-                                color: _borderColor(),
-                              ),
-                              boxShadow: _boxShadow(),
+                  }),
+                  onExit: (event) => setState(() {
+                    if (!(AppPlatform.isAndroid || AppPlatform.isIOS)) {
+                      isHovered = false;
+                    }
+                  }),
+                  child: autoCompleteOptions == null
+                      ? AnimatedContainer(
+                          duration: const Duration(milliseconds: 150),
+                          height: widget.height ?? _height(),
+                          alignment: _alignment(),
+                          padding:
+                              _padding().add(EdgeInsets.all(2 - _borderSize())),
+                          constraints: const BoxConstraints(minHeight: 40),
+                          decoration: BoxDecoration(
+                            color: _backgroundColor(),
+                            borderRadius: _borderRadius(),
+                            border: Border.all(
+                              width: _borderSize(),
+                              color: _borderColor(),
                             ),
-                            child: _fieldContents(),
-                          )
-                        : LayoutBuilder(
-                            builder: (context, constraints) => AppRawAutocomplete<T>(
-                              textEditingController: widget.controller,
-                              focusNode: widget.focusNode,
-                              displayStringForOption: autoCompleteOptions?.optionTranslator ?? (v) => v.toString(),
-                              fieldViewBuilder: (context, controller, focusNode, onSubmit) {
-                                autoCompleteOnSubmit = onSubmit;
-                                return AnimatedContainer(
-                                  duration: const Duration(milliseconds: 150),
-                                  height: widget.height ?? _height(),
-                                  alignment: _alignment(),
-                                  padding: _padding().add(EdgeInsets.all(2 - _borderSize())),
-                                  constraints: const BoxConstraints(minHeight: 40),
-                                  decoration: BoxDecoration(
-                                    color: _backgroundColor(),
-                                    borderRadius: _borderRadius(),
-                                    border: Border.all(
-                                      width: _borderSize(),
-                                      color: _borderColor(),
-                                    ),
-                                    boxShadow: _boxShadow(),
-                                  ),
-                                  child: _fieldContents(),
-                                );
-                              },
-                              optionsViewBuilder: (context, onSelect, options) =>
-                                  _dropdownBuilder(context, onSelect, options, constraints),
-                              optionsBuilder: _dropdownOptionsSorter,
-                              onSelected: autoCompleteOptions?.onSelection,
-                            ),
+                            boxShadow: _boxShadow(),
                           ),
-                  ),
+                          child: _fieldContents(),
+                        )
+                      : LayoutBuilder(
+                          builder: (context, constraints) =>
+                              AppRawAutocomplete<T>(
+                            textEditingController: widget.controller,
+                            focusNode: widget.focusNode,
+                            displayStringForOption:
+                                autoCompleteOptions?.optionTranslator ??
+                                    (v) => v.toString(),
+                            fieldViewBuilder:
+                                (context, controller, focusNode, onSubmit) {
+                              autoCompleteOnSubmit = onSubmit;
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 150),
+                                height: widget.height ?? _height(),
+                                alignment: _alignment(),
+                                padding: _padding()
+                                    .add(EdgeInsets.all(2 - _borderSize())),
+                                constraints:
+                                    const BoxConstraints(minHeight: 40),
+                                decoration: BoxDecoration(
+                                  color: _backgroundColor(),
+                                  borderRadius: _borderRadius(),
+                                  border: Border.all(
+                                    width: _borderSize(),
+                                    color: _borderColor(),
+                                  ),
+                                  boxShadow: _boxShadow(),
+                                ),
+                                child: _fieldContents(),
+                              );
+                            },
+                            optionsViewBuilder: (context, onSelect, options) =>
+                                _dropdownBuilder(
+                                    context, onSelect, options, constraints),
+                            optionsBuilder: _dropdownOptionsSorter,
+                            onSelected: autoCompleteOptions?.onSelection,
+                          ),
+                        ),
                 ),
               ),
               if (widget.onTap != null)
@@ -750,7 +822,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
                 ),
             ],
           ),
-          if ((widget.helperText?.isNotEmpty ?? false) && (widget.error?.isEmpty ?? true))
+          if ((widget.helperText?.isNotEmpty ?? false) &&
+              (widget.error?.isEmpty ?? true))
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               child: Text(
@@ -775,7 +848,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
     );
   }
 
-  Widget _dropdownBuilder(BuildContext context, void Function(T) onSelect, Iterable<T> options, BoxConstraints constraints) {
+  Widget _dropdownBuilder(BuildContext context, void Function(T) onSelect,
+      Iterable<T> options, BoxConstraints constraints) {
     return Align(
       alignment: Alignment.topLeft,
       child: Material(
@@ -783,13 +857,15 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
           margin: const EdgeInsets.only(top: 7),
           height: (40.0 * (options.length > 4 ? 4 : options.length)) + 16,
           width: constraints.biggest.width,
-          padding: autoCompleteOptions?.containerPadding ?? const EdgeInsets.all(8),
+          padding:
+              autoCompleteOptions?.containerPadding ?? const EdgeInsets.all(8),
           clipBehavior: Clip.antiAlias,
           decoration: autoCompleteOptions?.containerDecoration ??
               ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(width: 1, color: AppTheme.colors(context).border),
+                  side: BorderSide(
+                      width: 1, color: AppTheme.colors(context).border),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 shadows: const [
@@ -805,7 +881,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
           child: ListView(
             children: options
                 .map((option) => autoCompleteOptions?.itemBuilder != null
-                    ? autoCompleteOptions!.itemBuilder!(context, option, onSelect)
+                    ? autoCompleteOptions!.itemBuilder!(
+                        context, option, onSelect)
                     : AppGestureDetector(
                         onTap: () => onSelect(option),
                         builder: (ctx, onHover) {
@@ -813,12 +890,18 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
                             height: 40,
                             alignment: Alignment.centerLeft,
                             decoration: BoxDecoration(
-                                color: onHover ? AppTheme.colors(context).neutralHighlight : Colors.white.withOpacity(0),
+                                color: onHover
+                                    ? AppTheme.colors(context).neutralHighlight
+                                    : Colors.white.withOpacity(0),
                                 borderRadius: BorderRadius.circular(24)),
                             duration: const Duration(milliseconds: 150),
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
-                              option is String ? option.toString() : (autoCompleteOptions?.optionTranslator(option)).toString(),
+                              option is String
+                                  ? option.toString()
+                                  : (autoCompleteOptions
+                                          ?.optionTranslator(option))
+                                      .toString(),
                               style: AppTextStyles.b14(
                                 AppTheme.colors(context).text,
                               ),
@@ -833,7 +916,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
     );
   }
 
-  Future<Iterable<T>> _dropdownOptionsSorter(TextEditingValue textEditingValue) async {
+  Future<Iterable<T>> _dropdownOptionsSorter(
+      TextEditingValue textEditingValue) async {
     if (textEditingValue.text == '' || autoCompleteOptions == null) {
       return Iterable<T>.empty();
     }
@@ -843,7 +927,9 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
         isLoading = true;
       });
       try {
-        result = (await autoCompleteOptions!.dataProvider!(textEditingValue.text)) ?? [];
+        result =
+            (await autoCompleteOptions!.dataProvider!(textEditingValue.text)) ??
+                [];
       } catch (e) {
         print(e);
         // logJson('Unable to fetch dropdown values: $T');
@@ -856,12 +942,18 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
 
     if (T is String) {
       return Future<List<T>>.value(
-        autoCompleteOptions!.initialOptions.map((e) => e.toString()).filter(textEditingValue.text).map((e) => e as T).toList(),
+        autoCompleteOptions!.initialOptions
+            .map((e) => e.toString())
+            .filter(textEditingValue.text)
+            .map((e) => e as T)
+            .toList(),
       );
     }
 
     return Future<List<T>>.value(
-      autoCompleteOptions!.initialOptions.filter(textEditingValue.text, autoCompleteOptions!.optionTranslator).toList(),
+      autoCompleteOptions!.initialOptions
+          .filter(textEditingValue.text, autoCompleteOptions!.optionTranslator)
+          .toList(),
     );
   }
 
@@ -887,6 +979,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
         return _booleanFieldContents(context, this);
       case AppInputFieldType.numeric:
         return _numericFieldContents(context, this);
+      case AppInputFieldType.identity:
+        return _idCardFieldContents(context, this);
     }
   }
 
@@ -901,6 +995,9 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
       return null;
     }
     if (widget.fieldType == AppInputFieldType.numeric) {
+      return 20;
+    }
+    if (widget.fieldType == AppInputFieldType.identity) {
       return 20;
     }
     if (widget.fieldType == AppInputFieldType.description) {
@@ -927,6 +1024,7 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
       case AppInputFieldType.text:
       case AppInputFieldType.phone:
       case AppInputFieldType.numeric:
+      case AppInputFieldType.identity:
         return const EdgeInsets.symmetric(horizontal: 16);
       case AppInputFieldType.tag:
         return const EdgeInsets.symmetric(horizontal: 8, vertical: 8);
@@ -975,11 +1073,13 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
       return widget.borderColor ?? AppTheme.colors(context).border;
     }
     if (widget.fieldType == AppInputFieldType.comment) {
-      return widget.borderColor ?? AppTheme.colors(context).neutralHighlightHover;
+      return widget.borderColor ??
+          AppTheme.colors(context).neutralHighlightHover;
     }
     if (widget.fieldType == AppInputFieldType.search) {
       if (widget.focusNode.hasFocus) return AppTheme.colors(context).border;
-      return widget.borderColor ?? AppTheme.colors(context).neutralHighlightHover;
+      return widget.borderColor ??
+          AppTheme.colors(context).neutralHighlightHover;
     }
 
     if (!isHovered && widget.error == null && !widget.focusNode.hasFocus) {
@@ -1028,7 +1128,8 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
       return AppTheme.colors(context).disabled;
     }
     if (widget.fieldType == AppInputFieldType.comment) {
-      return widget.backgroundColor ?? AppTheme.colors(context).neutralHighlightHover;
+      return widget.backgroundColor ??
+          AppTheme.colors(context).neutralHighlightHover;
     }
     if (widget.fieldType == AppInputFieldType.search) {
       if (isHovered && !widget.focusNode.hasFocus) {
@@ -1063,4 +1164,5 @@ enum AppInputFieldType {
   comment,
   boolean,
   numeric,
+  identity,
 }
