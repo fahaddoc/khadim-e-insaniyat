@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:khadim_e_insaniyat/modules/shared/app_text_styles.dart';
 import 'package:khadim_e_insaniyat/modules/widgets/fields/app_input_field/app_input_field.dart';
+import 'package:khadim_e_insaniyat/shared/app_theme.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AppDatePicker extends StatefulWidget {
@@ -53,6 +55,13 @@ class _AppDatePicker extends State<AppDatePicker> {
             onSelectionChanged: _onSelectionChanged,
             selectionMode: DateRangePickerSelectionMode.single,
             initialSelectedDate: DateTime.now(),
+            backgroundColor: AppTheme.colors(context).surface,
+            toggleDaySelection: true,
+            selectionColor: AppTheme.colors(context).primary,
+            headerStyle: DateRangePickerHeaderStyle(
+              backgroundColor: AppTheme.colors(context).primaryHighlightHover,
+              textStyle: AppTextStyles.b16(AppTheme.colors(context).primary)
+            ),
           ),
         ),
       ),

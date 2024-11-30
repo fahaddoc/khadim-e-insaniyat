@@ -8,7 +8,7 @@ abstract class DynamicListable {
 final uuid = Uuid();
 
 @entity
-class MedicinesListingModel implements DynamicListable {
+class PatientsListingModel implements DynamicListable {
   @primaryKey
   final String id;
   final String companyName;
@@ -19,7 +19,7 @@ class MedicinesListingModel implements DynamicListable {
   final double sellingAmount;
   final double purchasingAmount;
 
-  MedicinesListingModel({
+  PatientsListingModel({
     String? id,
     required this.companyName,
     required this.item,

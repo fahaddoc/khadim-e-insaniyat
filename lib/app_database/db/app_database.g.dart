@@ -74,13 +74,15 @@ class _$AppDatabase extends AppDatabase {
 
   MedicinesDao? _medicinesDaoInstance;
 
+  PatientEntryDao? _patientEntryDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 2,
+      version: 3,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -97,6 +99,8 @@ class _$AppDatabase extends AppDatabase {
       onCreate: (database, version) async {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `MedicinesListingModel` (`id` TEXT NOT NULL, `companyName` TEXT NOT NULL, `item` TEXT NOT NULL, `invoice` TEXT NOT NULL, `quantities` INTEGER NOT NULL, `type` TEXT, `sellingAmount` REAL NOT NULL, `purchasingAmount` REAL NOT NULL, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `PatientEntryModel` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `age` INTEGER NOT NULL, `date` TEXT NOT NULL, `contact` TEXT NOT NULL, `identity` TEXT NOT NULL, `address` TEXT NOT NULL, `medicines` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -107,6 +111,12 @@ class _$AppDatabase extends AppDatabase {
   @override
   MedicinesDao get medicinesDao {
     return _medicinesDaoInstance ??= _$MedicinesDao(database, changeListener);
+  }
+
+  @override
+  PatientEntryDao get patientEntryDao {
+    return _patientEntryDaoInstance ??=
+        _$PatientEntryDao(database, changeListener);
   }
 }
 
@@ -203,3 +213,93 @@ class _$MedicinesDao extends MedicinesDao {
     await _medicinesListingModelDeletionAdapter.delete(medicine);
   }
 }
+
+class _$PatientEntryDao extends PatientEntryDao {
+  _$PatientEntryDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _patientEntryModelInsertionAdapter = InsertionAdapter(
+            database,
+            'PatientEntryModel',
+            (PatientEntryModel item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'age': item.age,
+                  'date': item.date,
+                  'contact': item.contact,
+                  'identity': item.identity,
+                  'address': item.address,
+                  'medicines': _medicineListConverter.encode(item.medicines)
+                }),
+        _patientEntryModelUpdateAdapter = UpdateAdapter(
+            database,
+            'PatientEntryModel',
+            ['id'],
+            (PatientEntryModel item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'age': item.age,
+                  'date': item.date,
+                  'contact': item.contact,
+                  'identity': item.identity,
+                  'address': item.address,
+                  'medicines': _medicineListConverter.encode(item.medicines)
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<PatientEntryModel> _patientEntryModelInsertionAdapter;
+
+  final UpdateAdapter<PatientEntryModel> _patientEntryModelUpdateAdapter;
+
+  @override
+  Future<List<PatientEntryModel>> getAllPatientsEntry() async {
+    return _queryAdapter.queryList('SELECT * FROM PatientEntryModel',
+        mapper: (Map<String, Object?> row) => PatientEntryModel(
+            id: row['id'] as String?,
+            name: row['name'] as String,
+            age: row['age'] as int,
+            date: row['date'] as String,
+            contact: row['contact'] as String,
+            identity: row['identity'] as String,
+            address: row['address'] as String,
+            medicines:
+                _medicineListConverter.decode(row['medicines'] as String)));
+  }
+
+  @override
+  Future<PatientEntryModel?> findById(String id) async {
+    return _queryAdapter.query('SELECT * FROM PatientEntryModel WHERE id = ?1',
+        mapper: (Map<String, Object?> row) => PatientEntryModel(
+            id: row['id'] as String?,
+            name: row['name'] as String,
+            age: row['age'] as int,
+            date: row['date'] as String,
+            contact: row['contact'] as String,
+            identity: row['identity'] as String,
+            address: row['address'] as String,
+            medicines:
+                _medicineListConverter.decode(row['medicines'] as String)),
+        arguments: [id]);
+  }
+
+  @override
+  Future<void> insertPatientEntry(PatientEntryModel patient) async {
+    await _patientEntryModelInsertionAdapter.insert(
+        patient, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> updatePatientEntry(PatientEntryModel patient) async {
+    await _patientEntryModelUpdateAdapter.update(
+        patient, OnConflictStrategy.abort);
+  }
+}
+
+// ignore_for_file: unused_element
+final _medicineListConverter = MedicineListConverter();

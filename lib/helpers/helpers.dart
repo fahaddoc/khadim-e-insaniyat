@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:khadim_e_insaniyat/modules/shared/app_text_styles.dart';
+import 'package:khadim_e_insaniyat/shared/app_theme.dart';
+import 'package:toastification/toastification.dart';
+
 String formatCurrency(String value) {
   value = value.split(',').join('');
   String newText = value.toString();
@@ -16,4 +21,29 @@ String formatCurrency(String value) {
     initialText += i;
   }
   return initialText;
+}
+
+dynamic appToast(
+  BuildContext context,
+  String heading,
+  String message, {
+  ToastificationType? type = ToastificationType.error,
+}) {
+  return toastification.show(
+    showIcon: false,
+    type: type,
+    style: ToastificationStyle.fillColored,
+    context: context,
+    title: Text(heading,
+        style: AppTextStyles.b14(AppTheme.colors(context).surface)),
+    description: Column(
+      children: [
+        Text(
+          message,
+          style: AppTextStyles.c12(AppTheme.colors(context).surface),
+        ),
+      ],
+    ),
+    autoCloseDuration: const Duration(seconds: 5),
+  );
 }

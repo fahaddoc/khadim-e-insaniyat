@@ -309,128 +309,125 @@ class _AppButtonState extends State<AppButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      identifier: 'button',
-      child: GestureDetector(
-        onTapUp: (details) async {
-          if (isActive) {
-            setState(() {
-              isActive = false;
-            });
+    return GestureDetector(
+      onTapUp: (details) async {
+        if (isActive) {
+          setState(() {
+            isActive = false;
+          });
+        }
+        if (!widget.isDisabled && !widget.isLoading) {
+          if (widget.onTap != null) {
+            widget.onTap!();
           }
-          if (!widget.isDisabled && !widget.isLoading) {
-            if (widget.onTap != null) {
-              widget.onTap!();
-            }
-          }
+        }
+      },
+      onTapDown: (details) {
+        if (!isActive) {
+          setState(() {
+            isActive = true;
+          });
+        }
+      },
+      onTapCancel: () {
+        if (isActive) {
+          setState(() {
+            isActive = false;
+          });
+        }
+      },
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onHover: (event) {
+          isHovered = true;
+          setState(() {});
         },
-        onTapDown: (details) {
-          if (!isActive) {
-            setState(() {
-              isActive = true;
-            });
-          }
+        onExit: (event) {
+          isHovered = false;
+          setState(() {});
         },
-        onTapCancel: () {
-          if (isActive) {
-            setState(() {
-              isActive = false;
-            });
-          }
-        },
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          onHover: (event) {
-            isHovered = true;
-            setState(() {});
-          },
-          onExit: (event) {
-            isHovered = false;
-            setState(() {});
-          },
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                height: widget.height ?? _heightFromSize(widget.size),
-                width: widget.fitToText ? null : widget.width,
-                alignment: widget.fitToText ? null : Alignment.center,
-                padding: _paddingFromSize(widget.size),
-                margin: EdgeInsets.symmetric(horizontal: widget.horizontalMargin ?? 0),
-                decoration: BoxDecoration(
-                  color: widget.color ?? _colorFromType(widget.type),
-                  borderRadius: BorderRadius.circular(100),
-                  border: _borderFromType(widget.type),
-                ),
-                child: Opacity(
-                  opacity: widget.isLoading ? 0 : 1,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (widget.leadingIcon != null || widget.leading != null) ...[
-                        widget.leading ??
-                            widget.leadingIcon!.image(
-                              width: _iconWidthFromSize(widget.size),
-                              height: _iconHeightFromSize(widget.size),
-                              color: _leadingIconColor(),
-                            ),
-                        if (widget.label != null) const SizedBox(width: 8),
-                      ],
-                      if (widget.label != null)
-                        Flexible(
-                          child: Text(
-                            widget.label!,
-                            style: widget.labelStyle ?? _labelStyleFromType(widget.type),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              height: widget.height ?? _heightFromSize(widget.size),
+              width: widget.fitToText ? null : widget.width,
+              alignment: widget.fitToText ? null : Alignment.center,
+              padding: _paddingFromSize(widget.size),
+              margin: EdgeInsets.symmetric(horizontal: widget.horizontalMargin ?? 0),
+              decoration: BoxDecoration(
+                color: widget.color ?? _colorFromType(widget.type),
+                borderRadius: BorderRadius.circular(100),
+                border: _borderFromType(widget.type),
+              ),
+              child: Opacity(
+                opacity: widget.isLoading ? 0 : 1,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.leadingIcon != null || widget.leading != null) ...[
+                      widget.leading ??
+                          widget.leadingIcon!.image(
+                            width: _iconWidthFromSize(widget.size),
+                            height: _iconHeightFromSize(widget.size),
+                            color: _leadingIconColor(),
                           ),
-                        ),
-                      if (widget.trailingIcon != null || widget.trailing != null) ...[
-                        if (widget.label != null) const SizedBox(width: 8),
-                        widget.trailing ??
-                            widget.trailingIcon!.image(
-                              width: _iconWidthFromSize(widget.size),
-                              height: _iconHeightFromSize(widget.size),
-                              color: _trailingIconColor(),
-                            ),
-                      ],
+                      if (widget.label != null) const SizedBox(width: 8),
                     ],
+                    if (widget.label != null)
+                      Flexible(
+                        child: Text(
+                          widget.label!,
+                          style: widget.labelStyle ?? _labelStyleFromType(widget.type),
+                        ),
+                      ),
+                    if (widget.trailingIcon != null || widget.trailing != null) ...[
+                      if (widget.label != null) const SizedBox(width: 8),
+                      widget.trailing ??
+                          widget.trailingIcon!.image(
+                            width: _iconWidthFromSize(widget.size),
+                            height: _iconHeightFromSize(widget.size),
+                            color: _trailingIconColor(),
+                          ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            if (widget.badgeCount != null && widget.badgeCount! > 0)
+              Positioned(
+                right: 0,
+                top: -5,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: widget.borderColor ?? AppTheme.colors(context).border,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white, width: 1)),
+                  child: Text(
+                    "${widget.badgeCount}",
+                    style: AppTextStyles.u10(Colors.white),
                   ),
                 ),
               ),
-              if (widget.badgeCount != null && widget.badgeCount! > 0)
-                Positioned(
-                  right: 0,
-                  top: -5,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                        color: widget.borderColor ?? AppTheme.colors(context).border,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white, width: 1)),
-                    child: Text(
-                      "${widget.badgeCount}",
-                      style: AppTextStyles.u10(Colors.white),
-                    ),
-                  ),
-                ),
-              if (widget.isLoading)
-                Positioned.fill(
-                  child: Center(
-                    child: SizedBox(
-                      // <-- Change according to design after design is completed
-                      width: _loadingIndicatorSizeFromButtonSize(),
-                      height: _loadingIndicatorSizeFromButtonSize(),
-                      child: FittedBox(
-                        child: CircularProgressIndicator(
-                          color: _contentColor(widget.type),
-                        ),
+            if (widget.isLoading)
+              Positioned.fill(
+                child: Center(
+                  child: SizedBox(
+                    // <-- Change according to design after design is completed
+                    width: _loadingIndicatorSizeFromButtonSize(),
+                    height: _loadingIndicatorSizeFromButtonSize(),
+                    child: FittedBox(
+                      child: CircularProgressIndicator(
+                        color: _contentColor(widget.type),
                       ),
                     ),
                   ),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );

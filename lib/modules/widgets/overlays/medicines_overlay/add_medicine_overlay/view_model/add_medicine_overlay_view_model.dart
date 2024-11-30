@@ -3,6 +3,7 @@ import 'package:khadim_e_insaniyat/app/navigator/app_navigator.dart';
 import 'package:khadim_e_insaniyat/app_database/initialize_db/initialize_db.dart';
 import 'package:khadim_e_insaniyat/core/core_view_model.dart';
 import 'package:khadim_e_insaniyat/enums/enums.dart';
+import 'package:khadim_e_insaniyat/helpers/helpers.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/medicines_listing/models/medicines_listing_model.dart';
 import 'package:khadim_e_insaniyat/modules/shared/app_text_styles.dart';
 import 'package:khadim_e_insaniyat/shared/app_theme.dart';
@@ -120,23 +121,7 @@ class AddMedicineOverlayViewModel extends CoreViewModel {
   void onTapAddMedicine() {
     String isValidate = fieldsValidation();
     if (isValidate != '') {
-      toastification.show(
-        showIcon: false,
-        type: ToastificationType.error,
-        style: ToastificationStyle.fillColored,
-        context: context,
-        title: Text('Fields Missing',
-            style: AppTextStyles.b14(AppTheme.colors(context!).surface)),
-        description: Column(
-          children: [
-            Text(
-              '${fieldsValidation()}',
-              style: AppTextStyles.c12(AppTheme.colors(context!).surface),
-            ),
-          ],
-        ),
-        autoCloseDuration: const Duration(seconds: 5),
-      );
+      appToast(context!, 'Fields Missing', fieldsValidation());
     }
     try {
       if (isValidate == '') {
@@ -148,7 +133,6 @@ class AddMedicineOverlayViewModel extends CoreViewModel {
           notifyListeners();
       }
     } catch (e) {
-      print(e);
       Navigator.of(context!).pop(e);
     }
   }
