@@ -10,19 +10,19 @@ import 'package:intl/intl.dart';
 
 class PatientEntryViewModel extends CoreViewModel {
   late TextEditingController patientNameController = getTextEditingController();
-  late FocusNode patientNameFocusNode = getFocusNode();
+  late FocusNode patientNameFocusNode = FocusNode();
 
   late PhoneNumberController contactController = PhoneNumberController();
-  late FocusNode contactFocusNode = getFocusNode();
+  late FocusNode contactFocusNode = FocusNode();
 
   late TextEditingController ageController = getTextEditingController();
-  late FocusNode ageFocusNode = getFocusNode();
+  late FocusNode ageFocusNode = FocusNode();
 
   late TextEditingController addressController = getTextEditingController();
-  late FocusNode addressFocusNode = getFocusNode();
+  late FocusNode addressFocusNode = FocusNode();
 
   late TextEditingController identityController = getTextEditingController();
-  late FocusNode identityFocusNode = getFocusNode();
+  late FocusNode identityFocusNode = FocusNode();
 
   List<String> tableHead = [
     'Given Medicine',

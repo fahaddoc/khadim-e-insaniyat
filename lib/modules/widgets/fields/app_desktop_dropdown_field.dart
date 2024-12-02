@@ -34,7 +34,7 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
     this.height = 40,
     this.decoration,
   }) {
-    this.stringConverter = stringConverter ?? (_) => _.toString();
+    this.stringConverter = stringConverter ?? (item) => item.toString();
   }
 
   String? get selectedDisplayValue {
@@ -60,7 +60,9 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                   Text(
                     label!,
                     style: AppTextStyles.b14(
-                      isDisabled ? AppTheme.colors(context).textDisabled : AppTheme.colors(context).text,
+                      isDisabled
+                          ? AppTheme.colors(context).textDisabled
+                          : AppTheme.colors(context).text,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -70,7 +72,8 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 2),
                       child: Text(
                         '*',
-                        style: AppTextStyles.b14(AppTheme.colors(context).primary),
+                        style:
+                            AppTextStyles.b14(AppTheme.colors(context).primary),
                       ),
                     )
                 ],
@@ -82,8 +85,9 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                 isExpanded: true,
                 hint: Text(
                   hint ?? 'Select',
-                  style: AppTextStyles.b14(
-                      isDisabled ? AppTheme.colors(context).textTersiary : AppTheme.colors(context).textTersiary),
+                  style: AppTextStyles.b14(isDisabled
+                      ? AppTheme.colors(context).textTersiary
+                      : AppTheme.colors(context).textTersiary),
                 ),
                 selectedItemBuilder: (context) => List.generate(
                   values.length,
@@ -91,8 +95,9 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       stringConverter(values[index]),
-                      style:
-                          AppTextStyles.b14(isDisabled ? AppTheme.colors(context).textTersiary : AppTheme.colors(context).text),
+                      style: AppTextStyles.b14(isDisabled
+                          ? AppTheme.colors(context).textTersiary
+                          : AppTheme.colors(context).text),
                     ),
                   ),
                 ),
@@ -109,7 +114,8 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                               color: isDisabled
                                   ? AppTheme.colors(context).disabled
                                   : onHover
-                                      ? AppTheme.colors(context).neutralHighlight
+                                      ? AppTheme.colors(context)
+                                          .neutralHighlight
                                       : AppTheme.colors(context).surface,
                               borderRadius: BorderRadius.circular(24)),
                           duration: const Duration(milliseconds: 100),
@@ -137,7 +143,9 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   decoration: decoration ??
                       BoxDecoration(
-                        color: isDisabled ? AppTheme.colors(context).disabled : AppTheme.colors(context).input,
+                        color: isDisabled
+                            ? AppTheme.colors(context).disabled
+                            : AppTheme.colors(context).input,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           width: 1,
@@ -170,7 +178,8 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                 menuItemStyleData: MenuItemStyleData(
                   height: 40,
                   padding: EdgeInsets.zero,
-                  overlayColor: WidgetStateColor.resolveWith((states) => Colors.transparent),
+                  overlayColor: WidgetStateColor.resolveWith(
+                      (states) => Colors.transparent),
                 ),
               ),
             ),

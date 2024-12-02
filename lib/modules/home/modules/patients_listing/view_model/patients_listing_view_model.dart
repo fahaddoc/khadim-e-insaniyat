@@ -1,6 +1,7 @@
 import 'package:khadim_e_insaniyat/app/locator.dart';
 import 'package:khadim_e_insaniyat/app_database/initialize_db/initialize_db.dart';
 import 'package:khadim_e_insaniyat/core/core_view_model.dart';
+import 'package:khadim_e_insaniyat/helpers/helpers.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/patient_entry/models/patient_entry_model.dart';
 import 'package:khadim_e_insaniyat/services/overlay_service.dart';
 
@@ -27,7 +28,7 @@ class PatientsListingViewModel extends CoreViewModel {
       _tableRow = res;
       notifyListeners();
     } catch (e) {
-      print(e);
+      appToast(context!, 'Error', e.toString());
     }
   }
 

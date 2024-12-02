@@ -25,13 +25,12 @@ void main() async {
   GestureBinding.instance.resamplingEnabled = true;
   setupLocator();
   await initialiseServices();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.landscapeLeft]);
   runApp(const MyApp());
 }
 
-initialiseServices() async {
-
-}
+initialiseServices() async {}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -54,18 +53,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class _MaterialScrollBehavior extends ScrollBehavior {
-  @override
-  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) {
-    return child;
-  }
-
-  @override
-  ScrollPhysics getScrollPhysics(BuildContext context) => kIsWeb ? const ClampingScrollPhysics() : const BouncingScrollPhysics();
-
-  @override
-  Set<PointerDeviceKind> get dragDevices =>
-      {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus, PointerDeviceKind.unknown};
-}
-
