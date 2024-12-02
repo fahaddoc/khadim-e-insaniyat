@@ -37,7 +37,7 @@ class AppDropdownField<T> extends StatelessWidget {
     if (selectedValue == null) {
       return null;
     }
-    return stringConverter(selectedValue!);
+    return stringConverter(selectedValue as T);
   }
 
   @override

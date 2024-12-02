@@ -41,7 +41,7 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
     if (selectedValue == null) {
       return null;
     }
-    return stringConverter(selectedValue!);
+    return stringConverter(selectedValue as T);
   }
 
   @override
@@ -170,7 +170,7 @@ class AppDesktopDropdownField<T> extends StatelessWidget {
                 menuItemStyleData: MenuItemStyleData(
                   height: 40,
                   padding: EdgeInsets.zero,
-                  overlayColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                  overlayColor: WidgetStateColor.resolveWith((states) => Colors.transparent),
                 ),
               ),
             ),

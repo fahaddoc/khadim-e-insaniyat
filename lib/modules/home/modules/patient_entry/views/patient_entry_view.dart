@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:khadim_e_insaniyat/assets_gen/assets.gen.dart';
 import 'package:khadim_e_insaniyat/core/core_view.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/patient_entry/view_model/patient_entry_view_model.dart';
 import 'package:khadim_e_insaniyat/modules/home/widgets/medicine_list/views/medicine_list.dart';
 import 'package:khadim_e_insaniyat/modules/widgets/app_buttons/app_button.dart';
 import 'package:khadim_e_insaniyat/modules/widgets/app_date_picker/app_date_picker.dart';
-import 'package:khadim_e_insaniyat/modules/widgets/app_table_view/app_table_view.dart';
 import 'package:khadim_e_insaniyat/modules/widgets/current_opd/current_opd.dart';
 import 'package:khadim_e_insaniyat/modules/widgets/fields/app_input_field/app_input_field.dart';
 import 'package:khadim_e_insaniyat/shared/app_theme.dart';

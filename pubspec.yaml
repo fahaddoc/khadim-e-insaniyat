@@ -39,6 +39,7 @@ dependencies:
   uuid: ^4.5.1
   universal_html: ^2.2.4
   syncfusion_flutter_datepicker: ^27.1.58
+  intl: ^0.19.0
 
   mask_text_input_formatter: ^2.9.0
   extended_text_field: ^16.0.0
@@ -69,7 +70,6 @@ dev_dependencies:
   build_runner: ^2.4.12
   floor_generator: ^1.4.0
   stacked_generator: ^1.6.1
-  intl: ^0.19.0
   web: 1.0.0
   json_serializable: ^6.8.0
 
