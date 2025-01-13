@@ -25,6 +25,7 @@ void main() async {
   GestureBinding.instance.resamplingEnabled = true;
   setupLocator();
   await initialiseServices();
+
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.landscapeLeft]);
   runApp(const MyApp());
