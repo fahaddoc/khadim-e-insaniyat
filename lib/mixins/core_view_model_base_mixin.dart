@@ -41,28 +41,6 @@ mixin CoreViewModelBase on ChangeNotifier {
     return controller;
   }
 
-  FocusNode getFocusNode({
-    String? debugLabel,
-    KeyEventResult Function(FocusNode, RawKeyEvent)? onKey,
-    KeyEventResult Function(FocusNode, KeyEvent)? onKeyEvent,
-    bool skipTraversal = false,
-    bool canRequestFocus = true,
-    bool descendantsAreFocusable = true,
-    bool descendantsAreTraversable = true,
-  }) {
-    final focusNode = FocusNode(
-      debugLabel: debugLabel,
-      onKey: onKey,
-      onKeyEvent: onKeyEvent,
-      skipTraversal: skipTraversal,
-      canRequestFocus: canRequestFocus,
-      descendantsAreFocusable: descendantsAreFocusable,
-      descendantsAreTraversable: descendantsAreTraversable,
-    );
-    _focusNodes.add(focusNode);
-    return focusNode;
-  }
-
   Future<void> initialize() async {}
 
   void _disposeTextEditingController(TextEditingController controller) {

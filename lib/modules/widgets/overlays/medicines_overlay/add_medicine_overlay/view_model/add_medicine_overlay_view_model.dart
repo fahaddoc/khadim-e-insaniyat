@@ -1,13 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:khadim_e_insaniyat/app/navigator/app_navigator.dart';
 import 'package:khadim_e_insaniyat/app_database/initialize_db/initialize_db.dart';
 import 'package:khadim_e_insaniyat/core/core_view_model.dart';
-import 'package:khadim_e_insaniyat/enums/enums.dart';
 import 'package:khadim_e_insaniyat/helpers/helpers.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/medicines_listing/models/medicines_listing_model.dart';
-import 'package:khadim_e_insaniyat/modules/shared/app_text_styles.dart';
-import 'package:khadim_e_insaniyat/shared/app_theme.dart';
-import 'package:toastification/toastification.dart';
 
 class AddMedicineOverlayViewModel extends CoreViewModel {
   TextEditingController companyNameController = TextEditingController();

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/medicines_listing/models/medicine_list_model.dart';
@@ -12,11 +10,11 @@ abstract class DynamicListable {
   List<dynamic> get toDynamicList;
 }
 
-final uuid = Uuid();
+const uuid = Uuid();
 
 @JsonSerializable()
 @entity
-class PatientEntryModel implements DynamicListable{
+class PatientEntryModel implements DynamicListable {
   @primaryKey
   final String id;
   final String name;
@@ -27,7 +25,6 @@ class PatientEntryModel implements DynamicListable{
   final String address;
   @TypeConverters([MedicineListConverter])
   final List<MedicineListModel> medicines;
-
 
   PatientEntryModel({
     String? id,
@@ -42,14 +39,14 @@ class PatientEntryModel implements DynamicListable{
 
   @override
   List<dynamic> get toDynamicList => [
-    name,
-    age,
-    contact,
-    identity,
-    address,
-    medicines,
-    date,
-  ];
+        name,
+        age,
+        contact,
+        identity,
+        address,
+        medicines,
+        date,
+      ];
 
   factory PatientEntryModel.fromJson(Map<String, dynamic> json) =>
       _$PatientEntryModelFromJson(json);

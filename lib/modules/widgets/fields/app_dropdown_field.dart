@@ -30,14 +30,14 @@ class AppDropdownField<T> extends StatelessWidget {
     this.onChanged,
     this.decoration,
   }) {
-    this.stringConverter = stringConverter ?? (_) => _.toString();
+    this.stringConverter = stringConverter ?? (item) => item.toString();
   }
 
   String? get selectedDisplayValue {
     if (selectedValue == null) {
       return null;
     }
-    return stringConverter(selectedValue!);
+    return stringConverter(selectedValue as T);
   }
 
   @override
@@ -52,7 +52,9 @@ class AppDropdownField<T> extends StatelessWidget {
             Text(
               "${label!}${required ? '*' : ''}",
               style: AppTextStyles.b14(
-                isDisabled ? AppTheme.colors(context).textDisabled : AppTheme.colors(context).text,
+                isDisabled
+                    ? AppTheme.colors(context).textDisabled
+                    : AppTheme.colors(context).text,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -84,7 +86,9 @@ class AppDropdownField<T> extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: decoration ??
                       BoxDecoration(
-                        color: isDisabled ? AppTheme.colors(context).disabled : AppTheme.colors(context).surface,
+                        color: isDisabled
+                            ? AppTheme.colors(context).disabled
+                            : AppTheme.colors(context).surface,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           width: 1,

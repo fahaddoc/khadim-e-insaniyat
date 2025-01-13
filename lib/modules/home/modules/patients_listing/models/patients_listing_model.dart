@@ -5,7 +5,7 @@ abstract class DynamicListable {
   List<dynamic> get toDynamicList;
 }
 
-final uuid = Uuid();
+const uuid = Uuid();
 
 @entity
 class PatientsListingModel implements DynamicListable {

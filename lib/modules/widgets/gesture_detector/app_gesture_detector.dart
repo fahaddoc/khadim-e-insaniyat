@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/gestures/events.dart';
+import 'package:flutter/gestures.dart';
 
 class AppGestureDetector extends StatefulWidget {
   final Widget Function(BuildContext context, bool isHovered) builder;

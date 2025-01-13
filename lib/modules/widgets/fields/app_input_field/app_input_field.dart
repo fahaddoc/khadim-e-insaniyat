@@ -926,14 +926,13 @@ class _AppInputFieldState<T extends Object> extends State<AppInputField<T>> {
       setState(() {
         isLoading = true;
       });
-      try {
-        result =
-            (await autoCompleteOptions!.dataProvider!(textEditingValue.text)) ??
-                [];
-      } catch (e) {
-        print(e);
-        // logJson('Unable to fetch dropdown values: $T');
-      }
+      // try {
+      //   result =
+      //       (await autoCompleteOptions!.dataProvider!(textEditingValue.text)) ??
+      //           [];
+      // } catch (e) {
+      //   appToast(context, 'Error', e.toString());
+      // }
       setState(() {
         isLoading = false;
       });

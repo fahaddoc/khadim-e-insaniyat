@@ -10,19 +10,19 @@ import 'package:intl/intl.dart';
 
 class PatientEntryViewModel extends CoreViewModel {
   late TextEditingController patientNameController = getTextEditingController();
-  late FocusNode patientNameFocusNode = getFocusNode();
+  late FocusNode patientNameFocusNode = FocusNode();
 
   late PhoneNumberController contactController = PhoneNumberController();
-  late FocusNode contactFocusNode = getFocusNode();
+  late FocusNode contactFocusNode = FocusNode();
 
   late TextEditingController ageController = getTextEditingController();
-  late FocusNode ageFocusNode = getFocusNode();
+  late FocusNode ageFocusNode = FocusNode();
 
   late TextEditingController addressController = getTextEditingController();
-  late FocusNode addressFocusNode = getFocusNode();
+  late FocusNode addressFocusNode = FocusNode();
 
   late TextEditingController identityController = getTextEditingController();
-  late FocusNode identityFocusNode = getFocusNode();
+  late FocusNode identityFocusNode = FocusNode();
 
   List<String> tableHead = [
     'Given Medicine',
@@ -42,7 +42,7 @@ class PatientEntryViewModel extends CoreViewModel {
       ];
       notifyListeners();
     } catch (e) {
-      print(e);
+      appToast(context!, e.toString(), '');
     }
   }
 
@@ -72,8 +72,9 @@ class PatientEntryViewModel extends CoreViewModel {
           result != '' ? 'CNIC is missing\n $result\n' : 'CNIC is missing\n';
     }
     if (tableRow.isEmpty) {
-      result +=
-          result != '' ? 'Medicines are missing\n $result\n' : 'Medicines are missing\n';
+      result += result != ''
+          ? 'Medicines are missing\n $result\n'
+          : 'Medicines are missing\n';
     }
     return result;
   }
@@ -85,7 +86,7 @@ class PatientEntryViewModel extends CoreViewModel {
     }
     try {
       if (isValidate == '') {
-        final res = await database.patientEntryDao.insertPatientEntry(
+        await database.patientEntryDao.insertPatientEntry(
           PatientEntryModel(
             name: patientNameController.text,
             age: int.parse(ageController.text),
@@ -96,7 +97,8 @@ class PatientEntryViewModel extends CoreViewModel {
             medicines: tableRow,
           ),
         );
-        appToast(context!,'Success','Entry Added Successfully',type: ToastificationType.success);
+        appToast(context!, 'Success', 'Entry Added Successfully',
+            type: ToastificationType.success);
         notifyListeners();
       }
     } catch (e) {
@@ -112,8 +114,7 @@ class PatientEntryViewModel extends CoreViewModel {
 
   @override
   Future<void> initialize() async {
-    final result = await database.patientEntryDao.findById("1");
-    print(result);
+    // final result = await database.patientEntryDao.findById("1");
     fetchMedicines();
     return super.initialize();
   }

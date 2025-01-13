@@ -11,7 +11,7 @@ extension AppStringExtension on String {
   }
 
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}".replaceAll("_", " ");
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}".replaceAll("_", " ");
   }
 
   String get initials {

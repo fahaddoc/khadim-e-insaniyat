@@ -18,7 +18,6 @@ String durationToMMSS(Duration duration) {
 }
 
 DateTime? dateFromJson(String? date) {
-  // TODO: 'Present' to be removed after fixes from backend
   if (date == null || date.isEmpty || date == '1970-01-01' || date == 'Present') {
     return null;
   }

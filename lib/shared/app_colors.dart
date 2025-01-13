@@ -353,8 +353,10 @@ class AppColors extends ThemeExtension<AppColors> {
       critical: critical ?? this.critical,
       criticalActive: criticalActive ?? this.criticalActive,
       criticalHighlight: criticalHighlight ?? this.criticalHighlight,
-      criticalHighlightActive: criticalHighlightActive ?? this.criticalHighlightActive,
-      criticalHighlightHover: criticalHighlightHover ?? this.criticalHighlightHover,
+      criticalHighlightActive:
+          criticalHighlightActive ?? this.criticalHighlightActive,
+      criticalHighlightHover:
+          criticalHighlightHover ?? this.criticalHighlightHover,
       criticalHover: criticalHover ?? this.criticalHover,
       mistakeCritical: mistakeCritical ?? this.mistakeCritical,
       disabled: disabled ?? this.disabled,
@@ -363,13 +365,17 @@ class AppColors extends ThemeExtension<AppColors> {
       highlightHover: highlightHover ?? this.highlightHover,
       input: input ?? this.input,
       neutralHighlight: neutralHighlight ?? this.neutralHighlight,
-      neutralHighlightActive: neutralHighlightActive ?? this.neutralHighlightActive,
-      neutralHighlightHover: neutralHighlightHover ?? this.neutralHighlightHover,
+      neutralHighlightActive:
+          neutralHighlightActive ?? this.neutralHighlightActive,
+      neutralHighlightHover:
+          neutralHighlightHover ?? this.neutralHighlightHover,
       primary: primary ?? this.primary,
       primaryActive: primaryActive ?? this.primaryActive,
       primaryHighlight: primaryHighlight ?? this.primaryHighlight,
-      primaryHighlightActive: primaryHighlightActive ?? this.primaryHighlightActive,
-      primaryHighlightHover: primaryHighlightHover ?? this.primaryHighlightHover,
+      primaryHighlightActive:
+          primaryHighlightActive ?? this.primaryHighlightActive,
+      primaryHighlightHover:
+          primaryHighlightHover ?? this.primaryHighlightHover,
       primaryHover: primaryHover ?? this.primaryHover,
       secondary: secondary ?? this.secondary,
       tertiary: tertiary ?? this.tertiary,
@@ -408,7 +414,7 @@ class AppColors extends ThemeExtension<AppColors> {
       compensation: compensation ?? this.compensation,
       education: education ?? this.education,
       skeletonView: skeletonView ?? this.skeletonView,
-      bannerWarning: bannerWarning ?? this.bannerWarning,
+      bannerWarning: bannerWarning,
       aiCritical: aiCritical ?? this.aiCritical,
       borderAiCritical: borderAiCritical ?? this.borderAiCritical,
       aiGrammar: aiGrammar ?? this.aiGrammar,
@@ -418,75 +424,130 @@ class AppColors extends ThemeExtension<AppColors> {
   }
 
   @override
-  ThemeExtension<AppColors> lerp(covariant ThemeExtension<AppColors>? other, double t) {
+  ThemeExtension<AppColors> lerp(
+      covariant ThemeExtension<AppColors>? other, double t) {
     if (other is! AppColors) {
       return this;
     }
     return AppColors(
       success: Color.lerp(success, other.success, t) ?? success,
       critical: Color.lerp(critical, other.critical, t) ?? critical,
-      criticalActive: Color.lerp(criticalActive, other.criticalActive, t) ?? criticalActive,
-      criticalHighlight: Color.lerp(criticalHighlight, other.criticalHighlight, t) ?? criticalHighlight,
-      criticalHighlightActive: Color.lerp(criticalHighlightActive, other.criticalHighlightActive, t) ?? criticalHighlightActive,
-      criticalHighlightHover: Color.lerp(criticalHighlightHover, other.criticalHighlightHover, t) ?? criticalHighlightHover,
-      criticalHover: Color.lerp(criticalHover, other.criticalHover, t) ?? criticalHover,
-      mistakeCritical: Color.lerp(mistakeCritical, other.mistakeCritical, t) ?? mistakeCritical,
+      criticalActive:
+          Color.lerp(criticalActive, other.criticalActive, t) ?? criticalActive,
+      criticalHighlight:
+          Color.lerp(criticalHighlight, other.criticalHighlight, t) ??
+              criticalHighlight,
+      criticalHighlightActive: Color.lerp(
+              criticalHighlightActive, other.criticalHighlightActive, t) ??
+          criticalHighlightActive,
+      criticalHighlightHover:
+          Color.lerp(criticalHighlightHover, other.criticalHighlightHover, t) ??
+              criticalHighlightHover,
+      criticalHover:
+          Color.lerp(criticalHover, other.criticalHover, t) ?? criticalHover,
+      mistakeCritical: Color.lerp(mistakeCritical, other.mistakeCritical, t) ??
+          mistakeCritical,
       disabled: Color.lerp(disabled, other.disabled, t) ?? disabled,
       ghost: Color.lerp(ghost, other.ghost, t) ?? ghost,
-      highlightActive: Color.lerp(highlightActive, other.highlightActive, t) ?? highlightActive,
-      highlightHover: Color.lerp(highlightHover, other.highlightHover, t) ?? highlightHover,
+      highlightActive: Color.lerp(highlightActive, other.highlightActive, t) ??
+          highlightActive,
+      highlightHover:
+          Color.lerp(highlightHover, other.highlightHover, t) ?? highlightHover,
       input: Color.lerp(input, other.input, t) ?? input,
-      neutralHighlight: Color.lerp(neutralHighlight, other.neutralHighlight, t) ?? neutralHighlight,
-      neutralHighlightActive: Color.lerp(neutralHighlightActive, other.neutralHighlightActive, t) ?? neutralHighlightActive,
-      neutralHighlightHover: Color.lerp(neutralHighlightHover, other.neutralHighlightHover, t) ?? neutralHighlightHover,
+      neutralHighlight:
+          Color.lerp(neutralHighlight, other.neutralHighlight, t) ??
+              neutralHighlight,
+      neutralHighlightActive:
+          Color.lerp(neutralHighlightActive, other.neutralHighlightActive, t) ??
+              neutralHighlightActive,
+      neutralHighlightHover:
+          Color.lerp(neutralHighlightHover, other.neutralHighlightHover, t) ??
+              neutralHighlightHover,
       primary: Color.lerp(primary, other.primary, t) ?? primary,
-      primaryActive: Color.lerp(primaryActive, other.primaryActive, t) ?? primaryActive,
-      primaryHighlight: Color.lerp(primaryHighlight, other.primaryHighlight, t) ?? primaryHighlight,
-      primaryHighlightActive: Color.lerp(primaryHighlightActive, other.primaryHighlightActive, t) ?? primaryHighlightActive,
-      primaryHighlightHover: Color.lerp(primaryHighlightHover, other.primaryHighlightHover, t) ?? primaryHighlightHover,
-      primaryHover: Color.lerp(primaryHover, other.primaryHover, t) ?? primaryHover,
+      primaryActive:
+          Color.lerp(primaryActive, other.primaryActive, t) ?? primaryActive,
+      primaryHighlight:
+          Color.lerp(primaryHighlight, other.primaryHighlight, t) ??
+              primaryHighlight,
+      primaryHighlightActive:
+          Color.lerp(primaryHighlightActive, other.primaryHighlightActive, t) ??
+              primaryHighlightActive,
+      primaryHighlightHover:
+          Color.lerp(primaryHighlightHover, other.primaryHighlightHover, t) ??
+              primaryHighlightHover,
+      primaryHover:
+          Color.lerp(primaryHover, other.primaryHover, t) ?? primaryHover,
       secondary: Color.lerp(secondary, other.secondary, t) ?? secondary,
       tertiary: Color.lerp(tertiary, other.tertiary, t) ?? tertiary,
       border: Color.lerp(border, other.border, t) ?? border,
-      borderSecondary: Color.lerp(borderSecondary, other.borderSecondary, t) ?? borderSecondary,
-      borderCritical: Color.lerp(borderCritical, other.borderCritical, t) ?? borderCritical,
-      borderDisabled: Color.lerp(borderDisabled, other.borderDisabled, t) ?? borderDisabled,
+      borderSecondary: Color.lerp(borderSecondary, other.borderSecondary, t) ??
+          borderSecondary,
+      borderCritical:
+          Color.lerp(borderCritical, other.borderCritical, t) ?? borderCritical,
+      borderDisabled:
+          Color.lerp(borderDisabled, other.borderDisabled, t) ?? borderDisabled,
       borderInfo: Color.lerp(borderInfo, other.borderInfo, t) ?? borderInfo,
-      borderPrimary: Color.lerp(borderPrimary, other.borderPrimary, t) ?? borderPrimary,
-      borderPrimaryActive: Color.lerp(borderPrimaryActive, other.borderPrimaryActive, t) ?? borderPrimaryActive,
-      borderPrimaryHover: Color.lerp(borderPrimaryHover, other.borderPrimaryHover, t) ?? borderPrimaryHover,
-      borderWarning: Color.lerp(borderWarning, other.borderWarning, t) ?? borderWarning,
-      borderSuccess: Color.lerp(borderSuccess, other.borderSuccess, t) ?? borderSuccess,
+      borderPrimary:
+          Color.lerp(borderPrimary, other.borderPrimary, t) ?? borderPrimary,
+      borderPrimaryActive:
+          Color.lerp(borderPrimaryActive, other.borderPrimaryActive, t) ??
+              borderPrimaryActive,
+      borderPrimaryHover:
+          Color.lerp(borderPrimaryHover, other.borderPrimaryHover, t) ??
+              borderPrimaryHover,
+      borderWarning:
+          Color.lerp(borderWarning, other.borderWarning, t) ?? borderWarning,
+      borderSuccess:
+          Color.lerp(borderSuccess, other.borderSuccess, t) ?? borderSuccess,
       text: Color.lerp(text, other.text, t) ?? text,
-      textCritical: Color.lerp(textCritical, other.textCritical, t) ?? textCritical,
+      textCritical:
+          Color.lerp(textCritical, other.textCritical, t) ?? textCritical,
       textDanger: Color.lerp(textDanger, other.textDanger, t) ?? textDanger,
-      textDisabled: Color.lerp(textDisabled, other.textDisabled, t) ?? textDisabled,
+      textDisabled:
+          Color.lerp(textDisabled, other.textDisabled, t) ?? textDisabled,
       textInfo: Color.lerp(textInfo, other.textInfo, t) ?? textInfo,
       textInverse: Color.lerp(textInverse, other.textInverse, t) ?? textInverse,
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t) ?? textPrimary,
       textLink: Color.lerp(textLink, other.textLink, t) ?? textLink,
-      textPrimaryActive: Color.lerp(textPrimaryActive, other.textPrimaryActive, t) ?? textPrimaryActive,
-      textPrimaryHover: Color.lerp(textPrimaryHover, other.textPrimaryHover, t) ?? textPrimaryHover,
-      textTersiary: Color.lerp(textTersiary, other.textTersiary, t) ?? textTersiary,
-      textNavigation: Color.lerp(textNavigation, other.textNavigation, t) ?? textNavigation,
+      textPrimaryActive:
+          Color.lerp(textPrimaryActive, other.textPrimaryActive, t) ??
+              textPrimaryActive,
+      textPrimaryHover:
+          Color.lerp(textPrimaryHover, other.textPrimaryHover, t) ??
+              textPrimaryHover,
+      textTersiary:
+          Color.lerp(textTersiary, other.textTersiary, t) ?? textTersiary,
+      textNavigation:
+          Color.lerp(textNavigation, other.textNavigation, t) ?? textNavigation,
       textWarning: Color.lerp(textWarning, other.textWarning, t) ?? textWarning,
       textSuccess: Color.lerp(textSuccess, other.textSuccess, t) ?? textSuccess,
-      successHighlight: Color.lerp(successHighlight, other.successHighlight, t) ?? successHighlight,
+      successHighlight:
+          Color.lerp(successHighlight, other.successHighlight, t) ??
+              successHighlight,
       toast: Color.lerp(toast, other.toast, t) ?? toast,
       surface: Color.lerp(surface, other.surface, t) ?? surface,
       surfaceDark: Color.lerp(surfaceDark, other.surfaceDark, t) ?? surfaceDark,
-      surfaceOverlay: Color.lerp(surfaceOverlay, other.surfaceOverlay, t) ?? surfaceOverlay,
-      workplaceType: Color.lerp(workplaceType, other.workplaceType, t) ?? workplaceType,
+      surfaceOverlay:
+          Color.lerp(surfaceOverlay, other.surfaceOverlay, t) ?? surfaceOverlay,
+      workplaceType:
+          Color.lerp(workplaceType, other.workplaceType, t) ?? workplaceType,
       jobType: Color.lerp(jobType, other.jobType, t) ?? jobType,
-      experienceLevel: Color.lerp(experienceLevel, other.experienceLevel, t) ?? experienceLevel,
-      compensation: Color.lerp(compensation, other.compensation, t) ?? compensation,
+      experienceLevel: Color.lerp(experienceLevel, other.experienceLevel, t) ??
+          experienceLevel,
+      compensation:
+          Color.lerp(compensation, other.compensation, t) ?? compensation,
       education: Color.lerp(education, other.education, t) ?? education,
-      skeletonView: Color.lerp(skeletonView, other.skeletonView, t) ?? skeletonView,
-      bannerWarning: Color.lerp(bannerWarning, other.bannerWarning, t) ?? bannerWarning,
+      skeletonView:
+          Color.lerp(skeletonView, other.skeletonView, t) ?? skeletonView,
+      bannerWarning:
+          Color.lerp(bannerWarning, other.bannerWarning, t) ?? bannerWarning,
       aiCritical: Color.lerp(aiCritical, other.aiCritical, t) ?? aiCritical,
-      borderAiCritical: Color.lerp(borderAiCritical, other.borderAiCritical, t) ?? borderAiCritical,
+      borderAiCritical:
+          Color.lerp(borderAiCritical, other.borderAiCritical, t) ??
+              borderAiCritical,
       aiGrammar: Color.lerp(aiGrammar, other.aiGrammar, t) ?? aiGrammar,
-      borderAiGrammar: Color.lerp(borderAiGrammar, other.borderAiGrammar, t) ?? borderAiGrammar,
+      borderAiGrammar: Color.lerp(borderAiGrammar, other.borderAiGrammar, t) ??
+          borderAiGrammar,
       aiPurple: Color.lerp(aiPurple, other.aiPurple, t) ?? aiPurple,
     );
   }

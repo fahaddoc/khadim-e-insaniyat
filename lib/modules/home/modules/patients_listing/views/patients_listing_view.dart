@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:khadim_e_insaniyat/core/core_view.dart';
 import 'package:khadim_e_insaniyat/modules/home/modules/patients_listing/view_model/patients_listing_view_model.dart';
-import 'package:khadim_e_insaniyat/modules/widgets/app_buttons/app_button.dart';
 import 'package:khadim_e_insaniyat/modules/widgets/app_table_view/app_table_view.dart';
 
 class PatientsListingView extends CoreView<PatientsListingViewModel> {
